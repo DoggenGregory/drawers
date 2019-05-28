@@ -11,6 +11,16 @@
 |
 */
 
+use App\Events\drawer;
+
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/canvas',function(){
+    return view('canvas');
+});
+
+Route::get('/greg',function(){
+    event(new drawer());
 });
