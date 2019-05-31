@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 
 class UserController extends Controller
@@ -79,17 +80,19 @@ class UserController extends Controller
         $newpw = $request->get('newpw');
         $newpw_confirm = $request->get('newpw_confirm');
 
-        if(!empty($oldpw && Hash::check($oldpw, $user->password))){
+        if(!empty($oldpw) && Hash::check($oldpw, $user->password)){
             if($newpw == $newpw_confirm){
                 $user->password = Hash::make($newpw);
             }else{
-                
+                return redirect('settings')->with('error', 'Confirmation password does not match new password.');
             }
+        }elseif(empty($oldpw) && (isset($newpw) || isset($newpw_confirm))){
+            return redirect('settings')->with('error', 'Please enter old password to save new password.');
         }
 
         $user->save();
 
-        return redirect('index')->with('success', 'Profile updated!');
+        return redirect('index')->with('status', 'Profile updated!');
     }
 
     /**

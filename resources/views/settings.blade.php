@@ -12,15 +12,12 @@
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
-                    @elseif ($errors->any())
+                    @elseif (session('error'))
                         <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            </ul>
+                            {{ session('error') }}
                         </div>
                         <br />
-                    @endif
+                   @endif
 
                     <form action="{{ route('user.update', $user) }}" method="post">
                         @method('PATCH')
