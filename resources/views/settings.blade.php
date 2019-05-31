@@ -43,6 +43,7 @@
                             <label for="newpw_confirm">Confirm new password</label>
                             <input type="password" class="form-control" name="newpw_confirm">
                         </div>
+                        <input type="hidden" name="avatar-radio" value="{{ $user->avatar }}">
                         <div class="form-group">
                             <button type="submit" class="btn btn-secondary" name="settings-btn">Submit changes</button>
                         </div>

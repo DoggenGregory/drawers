@@ -15,8 +15,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        $userdb = auth()->user();
-        return view('index')->with('userdb', $userdb);
+        $paths = glob(public_path().'/avatars/*.*');
+        $avatarList = [];
+
+        foreach($paths as $path){
+            $file = basename($path);
+            array_push($avatarList, $file);
+        }
+
+        $user = auth()->user();
+        return view('index', compact('user'))->with('avatarList', $avatarList);
     }
 
     /**
@@ -75,6 +83,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = $request->get('username');
         $user->email = $request->get('email');
+        $user->avatar = $request->get('avatar-radio');
 
         $oldpw = $request->get('oldpw');
         $newpw = $request->get('newpw');
