@@ -12,21 +12,31 @@
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
+                    @elseif ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            </ul>
+                        </div>
+                        <br />
                     @endif
 
-                    <form action="{{ route('') }}" method="post">
-                        {{ csrf_field() }}
+                    <form action="{{ route('user.update', $user) }}" method="post">
+                        @method('PATCH')
+                        @csrf
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input type="text" class="form-control" name="username" value="{{ $userdb->name }}">
+                            <input type="text" class="form-control" name="username" value="{{ $user->name }}">
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control" name="email" value="{{ $userdb->email }}">
+                            <input type="text" class="form-control" name="email" value="{{ $user->email }}">
                         </div>
                         <div class="form-group">
                             <label for="oldpw">Old password</label>
                             <input type="password" class="form-control" name="oldpw">
+                            <small>In order to change password, please fill in old password.</small>
                         </div>
                         <div class="form-group">
                             <label for="newpw">New password</label>
