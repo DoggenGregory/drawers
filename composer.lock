@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f84e4d4e9d3662c565a7d4171827632f",
+    "content-hash": "1d83541ca6b3405c07ccf3f33488fef8",
     "packages": [
         {
             "name": "beyondcode/laravel-websockets",
