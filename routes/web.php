@@ -28,3 +28,7 @@ Route::get('/settings', 'UserController@edit')->name('settings');
 Route::get('/', 'welcome@index')->name('home');
 Route::get('/welcome', 'welcome@index')->name('home');
 Route::get('/greg', 'welcome@index')->name('piemels');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
