@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{csrf_token()}}">
 
         <title>Laravel</title>
 
@@ -94,6 +95,27 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
+                <p id="shit">wtf is deze shit</p>
+            <script src="{{asset('js/app.js')}}"></script>
+                {{--<form action="{{route(\App\Http\Controllers\welcome::index)}}" method="get">
+                    @csrf
+                    <input type="text" value="greg">
+                    <button type="submit" >click</button>
+                </form>--}}
+                <script>
+                        var Pelement = "";
+                        Echo.channel('welcome')
+                            .listen('newMessage',(e)=>{
+                            console.log(e.message);
+
+
+                                document.getElementById("shit").innerHTML =  e.message;
+                        });
+
+
+
+
+                </script>
         </div>
     </body>
 </html>

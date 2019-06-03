@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+;
+Route::get('/', 'welcome@index')->name('home');
+Route::get('/welcome', 'welcome@index')->name('home');
+Route::get('/greg', 'welcome@index')->name('piemels');
