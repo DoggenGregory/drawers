@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\NewMessage;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/messages', 'ChatsController@fetchMessages');
+Route::get('/messages', 'ChatsController@sendMessage');
+
 Route::resource('user', 'UserController');
 
 Route::get('/index', 'UserController@index')->name('index');
@@ -32,3 +37,10 @@ Route::get('/greg', 'welcome@index')->name('piemels');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function() {
+    broadcast(new NewMessage('some data'));
+
+    return view('welcome');
+});
+
+Route::get('/chats', 'ChatsController@index');

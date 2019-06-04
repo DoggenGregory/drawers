@@ -97,35 +97,16 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
-                <p id="shit">wtf is deze shit</p>
-            <script src="{{asset('js/app.js')}}"></script>
-                {{--<form action="{{route(\App\Http\Controllers\welcome::index)}}" method="get">
-                    @csrf
-                    <input type="text" value="greg">
-                    <button type="submit" >click</button>
-                </form>--}}
-                <script>
-                        var Pelement = "";
-                        Echo.channel('welcome')
-                            .listen('newMessage',(e)=>{
-                            console.log(e.message);
+            <p id="shit">wtf is deze shit</p>
 
-
-                                document.getElementById("shit").innerHTML =  e.message;
-                        });
-
-
-
-
-                </script>
         </div>
 
     <script src="{{ asset('js/app.js') }}"></script>
-    <script>
+    {{-- <script>
         Echo.channel('home')
             .listen('NewMessage', (e) => {
                 console.log(e.message);
             })
-    </script>
+    </script> --}}
     </body>
 </html>
