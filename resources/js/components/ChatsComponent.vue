@@ -20,7 +20,9 @@
                 <div class="card-header">Active users</div>
                 <div class="card-body">
                     <ul>
-                        <li class="py-2">Christophe</li>
+                        <li class="py-2" v-for="(user, index) in users" :key="index">
+                            {{ user.name }}
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -35,12 +37,27 @@
         data() {
             return {
                 messages: [],
-                newMessage: ''
+                newMessage: '',
+                users: []
             }
         },
 
         created() {
             this.fetchMessages();
+
+            Echo.join('chat')
+                .here(user => {
+                    this.users = user;
+                })
+                .joining(user => {
+                    this.users.push(user);
+                })
+                .leaving(user => {
+                    this.users = this.users.filter(u => u.id != user.id);
+                })
+                .listen('MessageSent', (event) => {
+                    this.messages.push(event.message);
+                });
             },
 
         methods: {

@@ -56,8 +56,3 @@ window.Echo = new Echo({
     wsHost: window.location.hostname,
     wsPort: 6001
 });
-
-window.Echo.channel('home')
-.listen('NewMessage', (e)=>{
-    console.log(e);
-});
