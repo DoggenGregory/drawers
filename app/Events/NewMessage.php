@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use app\MessageSent;
 
 class NewMessage implements ShouldBroadcast
 {
@@ -23,7 +24,8 @@ class NewMessage implements ShouldBroadcast
      */
     public function __construct($message)
     {
-        $this->message = $message;
+        //$this->message = $message;
+        $message = "greg";
     }
 
     /**
@@ -33,6 +35,6 @@ class NewMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('home');
+        return new Channel('chat');
     }
 }

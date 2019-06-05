@@ -22,6 +22,7 @@
                     <ul>
                         <li class="py-2" v-for="(user, index) in users" :key="index">
                             {{ user.name }}
+
                         </li>
                     </ul>
                 </div>
@@ -70,7 +71,8 @@
             sendMessage() {
                 this.messages.push({
                     user: this.user,
-                    message: this.newMessage
+                    message: this.newMessage,
+
                 });
                 axios.post('messages', {message: this.newMessage});
 

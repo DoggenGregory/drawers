@@ -37,7 +37,8 @@ Route::get('/greg', 'welcome@index')->name('piemels');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', function() {
+
+Route::post('/', function() {
     broadcast(new NewMessage('some data'));
 
     return view('welcome');
