@@ -16,7 +16,7 @@ class ChatsController extends Controller
         return view('chats');
     }
 
-    public function fetchMessage()
+    public function fetchMessages()
     {
         return Message::with('user')->get();
     }
