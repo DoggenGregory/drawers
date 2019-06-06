@@ -26,6 +26,7 @@
                 <div class="card-body">
                     <ul>
                         <li class="py-2" v-for="(user, index) in users" :key="index">
+                            <img :src="'/avatars/' + user.avatar" style="width: 30px; height: 30px; border-radius: 50%;" alt="Avatar">
                             {{ user.name }}
                         </li>
                     </ul>
