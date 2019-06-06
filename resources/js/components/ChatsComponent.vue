@@ -4,16 +4,21 @@
             <div class="card card-default">
                 <div class="card-header">Messages</div>
                 <div class="card-body p-8">
-                    <ul class="list-unstyled" style="height:300px; overflow-y:scroll">
+                    <ul class="list-unstyled" style="height:300px; overflow-y:scroll" v-chat-scroll>
                         <li class="p-2" v-for="(message, index) in messages" :key="index">
                             <strong>{{ message.user.name }}</strong>
                             {{ message.message }}
                         </li>
                     </ul>
                 </div>
-                <input @keyup.enter="sendMessage" v-model="newMessage" type="text" name="message" placeholder="Enter your message here" class="form-control">
+                <input
+                @keydown="sendTypingEvent" @keyup.enter="sendMessage"
+                v-model="newMessage"
+                type="text"
+                name="message"
+                placeholder="Enter your message here" class="form-control">
             </div>
-                <span class="text-muted">user is typing...</span>
+                <span class="text-muted" v-if="activeUser">{{ activeUser.name }} is typing...</span>
         </div>
         <div class="col-4">
             <div class="card card-default">
@@ -39,7 +44,9 @@
             return {
                 messages: [],
                 newMessage: '',
-                users: []
+                users: [],
+                activeUser: false,
+                typingTimer: false,
             }
         },
 
@@ -58,7 +65,18 @@
                 })
                 .listen('MessageSent', (event) => {
                     this.messages.push(event.message);
-                });
+                })
+                .listenForWhisper('typing', user => {
+                    this.activeUser = user;
+
+                    if(this.typingTimer) {
+                        clearTimeout(this.typingTimer);
+                    }
+
+                    this.typingTimer = setTimeout(() => {
+                        this.activeUser = false;
+                    }, 3000);
+                })
             },
 
         methods: {
@@ -77,6 +95,11 @@
                 axios.post('messages', {message: this.newMessage});
 
                 this.newMessage = '';
+            },
+
+            sendTypingEvent() {
+                Echo.join('chat')
+                .whisper('typing', this.user);
             }
         }
 
