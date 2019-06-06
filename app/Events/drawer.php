@@ -32,6 +32,6 @@ class drawer implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new channel('home');
+        return new channel('chat');
     }
 }

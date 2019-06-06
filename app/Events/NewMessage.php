@@ -9,7 +9,8 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use app\MessageSent;
+
+use App\Message;
 
 class NewMessage implements ShouldBroadcast
 {
@@ -35,6 +36,8 @@ class NewMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('chat');
+
+        return new PresenceChannel('chat');
+
     }
 }
