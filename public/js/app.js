@@ -1801,6 +1801,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
@@ -47467,30 +47471,49 @@ var render = function() {
           _c(
             "ul",
             _vm._l(_vm.users, function(user, index) {
-              return _c("li", { key: index, staticClass: "py-2" }, [
-                _c("img", {
-                  staticStyle: {
-                    width: "30px",
-                    height: "30px",
-                    "border-radius": "50%"
-                  },
-                  attrs: { src: "/avatars/" + user.avatar, alt: "Avatar" }
-                }),
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(user.name) +
-                    "\n                    "
-                )
-              ])
+              return _c(
+                "li",
+                { key: index, staticClass: "list-unstyled py-2" },
+                [
+                  _c("img", {
+                    staticStyle: {
+                      width: "30px",
+                      height: "30px",
+                      "border-radius": "50%"
+                    },
+                    attrs: { src: "/avatars/" + user.avatar, alt: "Avatar" }
+                  }),
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(user.name) +
+                      "\n                    "
+                  )
+                ]
+              )
             }),
             0
           )
         ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _vm._m(0)
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("form", { attrs: { action: "/chats", method: "get" } }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-secondary mt-3", attrs: { type: "submit" } },
+        [_vm._v("Clear chat")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 

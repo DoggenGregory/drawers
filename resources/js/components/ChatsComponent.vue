@@ -12,7 +12,8 @@
                     </ul>
                 </div>
                 <input
-                @keydown="sendTypingEvent" @keyup.enter="sendMessage"
+                @keydown="sendTypingEvent"
+                @keyup.enter="sendMessage"
                 v-model="newMessage"
                 type="text"
                 name="message"
@@ -25,7 +26,7 @@
                 <div class="card-header">Active users</div>
                 <div class="card-body">
                     <ul>
-                        <li class="py-2" v-for="(user, index) in users" :key="index">
+                        <li class="list-unstyled py-2" v-for="(user, index) in users" :key="index">
                             <img :src="'/avatars/' + user.avatar" style="width: 30px; height: 30px; border-radius: 50%;" alt="Avatar">
                             {{ user.name }}
                         </li>
@@ -33,6 +34,9 @@
                 </div>
             </div>
         </div>
+        <form action="/chats" method="get">
+            <button type="submit" class="btn btn-secondary mt-3">Clear chat</button>
+        </form>
     </div>
 </template>
 
@@ -99,7 +103,7 @@
             sendTypingEvent() {
                 Echo.join('chat')
                 .whisper('typing', this.user);
-            }
+            },
         }
     }
 </script>

@@ -33,4 +33,9 @@ class ChatsController extends Controller
 
         return ['status' => 'success'];
     }
+
+    public function truncate()
+    {
+        return Message::truncate();
+    }
 }
