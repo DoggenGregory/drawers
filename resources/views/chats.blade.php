@@ -3,8 +3,7 @@
 @section('content')
 <div class="container">
     <chats-component :user="{{ auth()->user() }}"></chats-component>
+    <canvas-component :user="{{ auth()->user() }}"></canvas-component>
 </div>
-<div class="container">
-    <Canvas-component :user="{{ auth()->user() }}"></Canvas-component>
-</div>
+
 @endsection
