@@ -36,6 +36,8 @@ class ChatsController extends Controller
 
     public function truncate()
     {
-        return Message::truncate();
+        if('clear-btn'){
+            return Message::truncate();
+        }
     }
 }

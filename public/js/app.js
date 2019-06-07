@@ -1754,6 +1754,89 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CanvasComponent.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CanvasComponent.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      mouse: {
+        current: {
+          x: 0,
+          y: 0
+        },
+        previous: {
+          x: 0,
+          y: 0
+        },
+        down: false
+      }
+    };
+  },
+  computed: {
+    currentMouse: function currentMouse() {
+      var c = document.getElementById("canvas");
+      var rect = c.getBoundingClientRect();
+      return {
+        x: this.mouse.current.x - rect.left,
+        y: this.mouse.current.y - rect.top
+      };
+    }
+  },
+  methods: {
+    draw: function draw(event) {
+      // requestAnimationFrame(this.draw);
+      if (this.mouse.down) {
+        var c = document.getElementById("canvas");
+        var ctx = c.getContext("2d");
+        ctx.clearRect(0, 0, 800, 800);
+        ctx.lineTo(this.currentMouse.x, this.currentMouse.y);
+        ctx.strokeStyle = "#F63E02";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+    },
+    handleMouseDown: function handleMouseDown(event) {
+      this.mouse.down = true;
+      this.mouse.current = {
+        x: event.pageX,
+        y: event.pageY
+      };
+      var c = document.getElementById("canvas");
+      var ctx = c.getContext("2d");
+      ctx.moveTo(this.currentMouse.x, this.currentMouse.y);
+    },
+    handleMouseUp: function handleMouseUp() {
+      this.mouse.down = false;
+    },
+    handleMouseMove: function handleMouseMove(event) {
+      this.mouse.current = {
+        x: event.pageX,
+        y: event.pageY
+      };
+      this.draw(event);
+    }
+  },
+  ready: function ready() {
+    var c = document.getElementById("canvas");
+    var ctx = c.getContext("2d");
+    ctx.translate(0.5, 0.5);
+    ctx.imageSmoothingEnabled = false; // this.draw();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ChatsComponent.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ChatsComponent.vue?vue&type=script&lang=js& ***!
@@ -47377,6 +47460,37 @@ return VueChatScroll;
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CanvasComponent.vue?vue&type=template&id=6df28c6a&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CanvasComponent.vue?vue&type=template&id=6df28c6a& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("canvas", {
+    attrs: { id: "canvas", width: "800px", height: "800px" },
+    on: {
+      mousedown: _vm.handleMouseDown,
+      mouseup: _vm.handleMouseUp,
+      mousemove: _vm.handleMouseMove
+    }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ChatsComponent.vue?vue&type=template&id=2bb55d4d&":
 /*!*****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ChatsComponent.vue?vue&type=template&id=2bb55d4d& ***!
@@ -47508,7 +47622,10 @@ var staticRenderFns = [
     return _c("form", { attrs: { action: "/chats", method: "get" } }, [
       _c(
         "button",
-        { staticClass: "btn btn-secondary mt-3", attrs: { type: "submit" } },
+        {
+          staticClass: "btn btn-secondary mt-3",
+          attrs: { type: "submit", name: "clear-btn" }
+        },
         [_vm._v("Clear chat")]
       )
     ])
@@ -59688,6 +59805,7 @@ Vue.use(vue_chat_scroll__WEBPACK_IMPORTED_MODULE_0___default.a);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('chats-component', __webpack_require__(/*! ./components/ChatsComponent.vue */ "./resources/js/components/ChatsComponent.vue")["default"]);
+Vue.component('drawing-board', __webpack_require__(/*! ./components/CanvasComponent.vue */ "./resources/js/components/CanvasComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -59763,6 +59881,76 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   wsPort: 6001,
   enabledTransports: ['ws', 'wss']
 });
+
+/***/ }),
+
+/***/ "./resources/js/components/CanvasComponent.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/CanvasComponent.vue ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CanvasComponent_vue_vue_type_template_id_6df28c6a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CanvasComponent.vue?vue&type=template&id=6df28c6a& */ "./resources/js/components/CanvasComponent.vue?vue&type=template&id=6df28c6a&");
+/* harmony import */ var _CanvasComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CanvasComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/CanvasComponent.vue?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _CanvasComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _CanvasComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CanvasComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CanvasComponent_vue_vue_type_template_id_6df28c6a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CanvasComponent_vue_vue_type_template_id_6df28c6a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/CanvasComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/CanvasComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/CanvasComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CanvasComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CanvasComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CanvasComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CanvasComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/CanvasComponent.vue?vue&type=template&id=6df28c6a&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/CanvasComponent.vue?vue&type=template&id=6df28c6a& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CanvasComponent_vue_vue_type_template_id_6df28c6a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CanvasComponent.vue?vue&type=template&id=6df28c6a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CanvasComponent.vue?vue&type=template&id=6df28c6a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CanvasComponent_vue_vue_type_template_id_6df28c6a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CanvasComponent_vue_vue_type_template_id_6df28c6a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

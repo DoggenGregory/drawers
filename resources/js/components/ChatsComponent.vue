@@ -35,7 +35,7 @@
             </div>
         </div>
         <form action="/chats" method="get">
-            <button type="submit" class="btn btn-secondary mt-3">Clear chat</button>
+            <button type="submit" name="clear-btn" class="btn btn-secondary mt-3">Clear chat</button>
         </form>
     </div>
 </template>
