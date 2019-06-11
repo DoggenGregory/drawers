@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/messages', 'ChatsController@fetchMessages');
 Route::post('/messages', 'ChatsController@sendMessage');
+Route::get('/messages', 'ChatsController@truncate');
 
 Route::resource('user', 'UserController');
 
