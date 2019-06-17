@@ -47,11 +47,12 @@ class ChatsController extends Controller
     public function sendCanvas(Request $request)
     {
         $drawers = auth()->user()->canvas()->create([
-            'corX' => $request->drawObject['coordinatesX'][0],
-            'corY' => $request->drawObject['coordinatesY'][0],
-            'color' => $request->drawObject['color'][0],
-            'thickness' => $request->drawObject['thickness'][0],
-            'break' => $request->drawObject['stopLine'][0],
+            'corX' => $request->drawObject['coordinatesX'],
+            'corY' => $request->drawObject['coordinatesY'],
+            'color' => $request->drawObject['color'],
+            'thickness' => $request->drawObject['thickness'],
+            'break' => $request->drawObject['stopLine'],
+
         ]);
        broadcast(new drawer($drawers->load('user')))->toOthers();
 
