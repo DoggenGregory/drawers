@@ -1928,10 +1928,7 @@ __webpack_require__.r(__webpack_exports__);
           this.drawObject.stopLine.push("f");
           this.mouse.firstDown = false; //////////////////////////////////////////////////////////////////////////////////////////////////////////////
           //push naar mysql
-
-          axios.post('canvas', {
-            drawObject: this.drawObject
-          }); //axios van mysql
+          //axios van mysql
           //zet in array
           //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         } else {
@@ -1941,7 +1938,9 @@ __webpack_require__.r(__webpack_exports__);
         //console.log(this.drawObject);
 
 
-        console.log(this.currentMouse.x, this.currentMouse.y, this.style.color, this.style.thickness); //ctx.beginPath();
+        axios.post('canvas', {
+          drawObject: this.drawObject
+        }); //ctx.beginPath();
         // ctx.moveTo(this.currentMouse.x, this.currentMouse.y);
 
         for (var i = 0; i < this.drawObject.coordinatesX.length; i++) {
@@ -6584,7 +6583,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/**\n* Fix user-agent\n*/\n* {\n    box-sizing: border-box;\n}\nhtml, body {\n    height: 100%;\n    margin: 0;\n    padding: 0;\n}\n\n/**\n* Canvas\n*/\n.whiteboard {\n    height: 100%;\n    width: 100%;\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    top: 0;\n}\n.colors {\n    position: fixed;\n}\n.color {\n    display: inline-block;\n    height: 48px;\n    width: 48px;\n}\n.color.black { background-color: black;\n}\n.color.red { background-color: red;\n}\n.color.green { background-color: green;\n}\n.color.blue { background-color: blue;\n}\n.color.yellow { background-color: yellow;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/**\n* Fix user-agent\n*/\n* {\n    box-sizing: border-box;\n}\nhtml, body {\n    height: 100%;\n    margin: 0;\n    padding: 0;\n}\n\n/**\n* Canvas\n*/\n.whiteboard {\n    height: 100%;\n    width: 100%;\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    top: 0;\n}\n.colors {\n    position: fixed;\n}\n.color {\n    display: inline-block;\n    height: 48px;\n    width: 48px;\n}\n.color.black { background-color: black;\n}\n.color.red { background-color: red;\n}\n.color.green { background-color: green;\n}\n.color.blue { background-color: blue;\n}\n.color.yellow { background-color: yellow;\n}\n", ""]);
 
 // exports
 

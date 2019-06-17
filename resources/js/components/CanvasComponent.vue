@@ -58,7 +58,7 @@ export default {
   methods: {
     draw: function (event) {
       //requestAnimationFrame(this.draw);
-     if (this.mouse.down ) {
+     if (this.mouse.down) {
        var c = document.getElementById("canvas");
 
          var ctx = c.getContext("2d");
@@ -70,13 +70,14 @@ export default {
          this.drawObject.coordinatesY.push(this.currentMouse.y);
          this.drawObject.color.push(this.style.color);
          this.drawObject.thickness.push(this.style.thickness);
+
          if(this.mouse.firstDown == true){
              this.drawObject.stopLine.push("f");
              this.mouse.firstDown = false;
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
              //push naar mysql
 
-             axios.post('canvas', {drawObject: this.drawObject});
+
 
 
              //axios van mysql
@@ -92,9 +93,7 @@ export default {
          //console.log(this.drawObject.coordinatesX.length);
          //console.log(JSON.stringify(this.drawObject));
          //console.log(this.drawObject);
-         console.log(this.currentMouse.x,this.currentMouse.y,this.style.color,this.style.thickness);
-
-
+         axios.post('canvas', {drawObject: this.drawObject});
 
         //ctx.beginPath();
         // ctx.moveTo(this.currentMouse.x, this.currentMouse.y);
@@ -123,7 +122,6 @@ export default {
       changeColor: function(x) {
         if(x=='rd'){
             this.style.color = "#f61914";
-
         }
           if(x=='bl'){
               this.style.color = "#326df6";
@@ -144,12 +142,11 @@ export default {
       this.mouse.current = {
         x: event.pageX,
         y: event.pageY
-
-      }
+      };
         var c = document.getElementById("canvas");
         var ctx = c.getContext("2d");
 
-        ctx.moveTo(this.currentMouse.x, this.currentMouse.y)
+        ctx.moveTo(this.currentMouse.x, this.currentMouse.y);
 
     },
         handleMouseUp: function () {
@@ -163,8 +160,7 @@ export default {
         y: event.pageY
       }
 
-      this.draw(event)
-
+      this.draw(event);
     }
   },
     ready: function () {
@@ -172,10 +168,7 @@ export default {
         var ctx = c.getContext("2d");
         ctx.translate(0.5, 0.5);
         ctx.imageSmoothingEnabled= false;
-
     },
-
-
 }
 </script>
 <style>
