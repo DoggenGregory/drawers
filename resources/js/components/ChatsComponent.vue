@@ -97,6 +97,7 @@
                     message: this.newMessage,
 
                 });
+
                 axios.post('messages', {message: this.newMessage});
 
                 this.newMessage = '';

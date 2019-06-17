@@ -14,7 +14,14 @@ class CreateCanvasTable extends Migration
     public function up()
     {
         Schema::create('canvas', function (Blueprint $table) {
+
             $table->bigIncrements('id');
+            $table->integer('user_id')->unsigned();
+            $table->string('corX');
+            $table->string('corY');
+            $table->string('color');
+            $table->string('thickness');
+            $table->string('break');
             $table->timestamps();
         });
     }

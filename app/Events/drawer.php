@@ -14,15 +14,15 @@ class drawer implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-
+    public $drawers;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($drawers)
     {
-
+        $this->drawers =  $drawers;
     }
 
     /**
@@ -32,6 +32,6 @@ class drawer implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new channel('chat');
-    }
+        return new PresenceChannel('chat');    }
+
 }

@@ -3,10 +3,10 @@
         <canvas id="canvas" v-on:mousedown="handleMouseDown" v-on:mouseup="handleMouseUp" v-on:mousemove="handleMouseMove" width="800px" height="800px"></canvas>
         <button @click="thicknessPlus()" >+</button>
         <button @click="thicknessMin()" >-</button>
-        <button @click="changeColor('red')">red</button>
-        <button @click="changeColor('blue')">blue</button>
-        <button @click="changeColor('green')">green</button>
-        <button @click="changeColor('black')">black</button>
+        <button @click="changeColor('rd')">red</button>
+        <button @click="changeColor('bl')">blue</button>
+        <button @click="changeColor('gn')">green</button>
+        <button @click="changeColor('bk')">black</button>
 
         <p>{{style.thickness}}</p>
     </div>
@@ -71,20 +71,35 @@ export default {
          this.drawObject.color.push(this.style.color);
          this.drawObject.thickness.push(this.style.thickness);
          if(this.mouse.firstDown == true){
-             this.drawObject.stopLine.push("drawOff");
+             this.drawObject.stopLine.push("f");
              this.mouse.firstDown = false;
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+             //push naar mysql
 
+             axios.post('canvas', {drawObject: this.drawObject});
+
+
+             //axios van mysql
+
+
+             //zet in array
+
+
+       //////////////////////////////////////////////////////////////////////////////////////////////////////////////
          }else{
-             this.drawObject.stopLine.push("drawOn");
+             this.drawObject.stopLine.push("n");
          }
          //console.log(this.drawObject.coordinatesX.length);
-         console.log(JSON.stringify(this.drawObject));
+         //console.log(JSON.stringify(this.drawObject));
+         //console.log(this.drawObject);
+         console.log(this.currentMouse.x,this.currentMouse.y,this.style.color,this.style.thickness);
+
 
 
         //ctx.beginPath();
         // ctx.moveTo(this.currentMouse.x, this.currentMouse.y);
          for (var i = 0; i<this.drawObject.coordinatesX.length; i++){
-             if(this.drawObject.stopLine[i]  == "drawOn") {
+             if(this.drawObject.stopLine[i]  == "n") {
                  ctx.beginPath();
                  ctx.moveTo(this.drawObject.coordinatesX[i - 1], this.drawObject.coordinatesY[i - 1]);
                  ctx.lineTo(this.drawObject.coordinatesX[i], this.drawObject.coordinatesY[i]);
@@ -100,23 +115,23 @@ export default {
 
     },
       thicknessPlus: function() {
-          this.style.thickness = this.style.thickness + 2;
+          this.style.thickness = this.style.thickness + 5;
       },
       thicknessMin: function() {
-          this.style.thickness = this.style.thickness - 2;
+          this.style.thickness = this.style.thickness - 5;
       },
       changeColor: function(x) {
-        if(x=='red'){
+        if(x=='rd'){
             this.style.color = "#f61914";
 
         }
-          if(x=='blue'){
+          if(x=='bl'){
               this.style.color = "#326df6";
           }
-          if(x=='green'){
+          if(x=='gn'){
               this.style.color = "#42f619";
           }
-          if(x=='black'){
+          if(x=='bk'){
               this.style.color = "#000000";
           }
 
@@ -163,3 +178,49 @@ export default {
 
 }
 </script>
+<style>
+
+    /**
+    * Fix user-agent
+    */
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    /**
+    * Canvas
+    */
+
+    .whiteboard {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+    }
+
+    .colors {
+        position: fixed;
+    }
+
+    .color {
+        display: inline-block;
+        height: 48px;
+        width: 48px;
+    }
+
+    .color.black { background-color: black; }
+    .color.red { background-color: red; }
+    .color.green { background-color: green; }
+    .color.blue { background-color: blue; }
+    .color.yellow { background-color: yellow; }
+</style>
