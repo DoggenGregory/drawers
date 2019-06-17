@@ -1,7 +1,7 @@
 <?php
 
 use App\Events\NewMessage;
-
+//use App\Events\drawer;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/messages', 'ChatsController@fetchMessages');
 Route::post('/messages', 'ChatsController@sendMessage');
-Route::post('/sendCanvas', 'ChatsController@sendCanvas');
+Route::post('/chats', 'ChatsController@sendCanvas');
 
 //Route::get('/messages', 'ChatsController@truncate');
 

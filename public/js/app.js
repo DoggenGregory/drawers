@@ -1832,11 +1832,8 @@ __webpack_require__.r(__webpack_exports__);
           this.mouse.firstDown = false; //////////////////////////////////////////////////////////////////////////////////////////////////////////////
           //push naar mysql
 
-          axios.post('websockets_canvas', {
-            corX: 'greg',
-            corY: 'hio',
-            color: 'dzaidj',
-            "break": 'djazid'
+          axios.post('canvas', {
+            drawObject: this.drawObject
           }); //axios van mysql
           //zet in array
           //////////////////////////////////////////////////////////////////////////////////////////////////////////////

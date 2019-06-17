@@ -16,6 +16,7 @@ class Canvas extends Migration
             Schema::create('canvas', function (Blueprint $table) {
 
                 $table->bigIncrements('id');
+                $table->integer('user_id')->unsigned();
                 $table->string('corX');
                 $table->string('corY');
                 $table->string('color');
@@ -31,6 +32,6 @@ class Canvas extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('websockets_statistics_entries');
+        Schema::dropIfExists('canvas');
     }
 }

@@ -76,7 +76,7 @@ export default {
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
              //push naar mysql
 
-             axios.post('websockets_canvas', {corX: 'greg', corY:'hio', color:'dzaidj', break:'djazid'});
+             axios.post('canvas', {drawObject:this.drawObject});
 
 
              //axios van mysql
