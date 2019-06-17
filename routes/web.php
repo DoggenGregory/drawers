@@ -23,7 +23,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/messages', 'ChatsController@fetchMessages');
 Route::post('/messages', 'ChatsController@sendMessage');
-Route::get('/messages', 'ChatsController@truncate');
+Route::post('/sendCanvas', 'ChatsController@sendCanvas');
+
+//Route::get('/messages', 'ChatsController@truncate');
 
 Route::resource('user', 'UserController');
 
@@ -31,9 +33,8 @@ Route::get('/index', 'UserController@index')->name('index');
 
 Route::get('/settings', 'UserController@edit')->name('settings');
 
-Route::get('/', 'welcome@index')->name('home');
+Route::get('/', 'welcome@index');
 Route::get('/welcome', 'welcome@index')->name('home');
-Route::get('/greg', 'welcome@index')->name('piemels');
 
 Auth::routes();
 

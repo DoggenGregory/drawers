@@ -32,4 +32,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class);
     }
+    public function canvas()
+    {
+        return $this->hasMany(Canvas::class);
+    }
 }

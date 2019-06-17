@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 
 
 
 use App\Message;
 use App\Events\MessageSent;
-
+use App\Events\drawer;
 
 class ChatsController extends Controller
 {
@@ -44,7 +45,18 @@ class ChatsController extends Controller
     public function truncate()
     {
 
-            return Message::truncate();
+            //return Message::truncate();
 
     }
+    public function sendCanvas(Request $request)
+    {
+
+        $request = auth()->user()->canvas()->create([
+
+            'canvas' => $request->$request
+        ]);
+       broadcast(new drawer($request->load('user')))->toOthers();
+
+        return ['status' => 'success'];
+}
 }
