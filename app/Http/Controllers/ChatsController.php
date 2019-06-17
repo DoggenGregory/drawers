@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-
-
 use App\Message;
 use App\Events\MessageSent;
 use App\Events\drawer;
@@ -30,47 +28,35 @@ class ChatsController extends Controller
 
     public function sendMessage(Request $request)
     {
-
         $message = auth()->user()->messages()->create([
-
             'message' => $request->message
         ]);
-
 
         broadcast(new MessageSent($message->load('user')))->toOthers();
 
         return ['status' => 'success'];
     }
 
-    public function truncate()
-    {
+    // public function truncate()
+    // {
 
             //return Message::truncate();
+    // }
 
-    }
+
     public function sendCanvas(Request $request)
     {
-
-        $drawer = auth()->user()->canvas()->create([
-
+        $drawers = auth()->user()->canvas()->create([
             'corX' => $request->drawObject['coordinatesX'][0],
             'corY' => $request->drawObject['coordinatesY'][0],
             'color' => $request->drawObject['color'][0],
+            'thickness' => $request->drawObject['thickness'][0],
             'break' => $request->drawObject['stopLine'][0],
-            'thickness'=>$request->drawObject['thickness'][0],
-
-
-/*            'corX' => 'sdfghjk',
-            'corY' => 'ezdyahzdio',
-            'color' => 'greg',
-            'break' => 'greg',
-            'thickness'=>'greg',*/
         ]);
-       broadcast(new drawer($drawer->load('user')))->toOthers();
+       broadcast(new drawer($drawers->load('user')))->toOthers();
 
-        //return ['status' => 'success'];
-        //return $request.coordinatesX.[0];
+       return $request;
 
-        return $request;
-}
+        // return ['status' => 'success'];
+    }
 }

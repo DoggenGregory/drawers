@@ -14,33 +14,33 @@
 
 <script>
 export default {
-    data: function () {
-    return {
-        drawObject :{
-            coordinatesX : new Array(),
-            coordinatesY : new Array(),
-            color : new Array(),
-            thickness : new Array(),
-            stopLine: new Array(),
-        },
-      mouse: {
-        current: {
-          x: 0,
-          y: 0
-        },
-        previous: {
-          x: 0,
-          y: 0
-        },
-        down: false,
-        firstDown : false,
+    data() {
+        return {
+            drawObject :{
+                coordinatesX : [],
+                coordinatesY : [],
+                color : [],
+                thickness : [],
+                stopLine: [],
+            },
+            mouse: {
+                current: {
+                    x: 0,
+                    y: 0
+                },
+                previous: {
+                    x: 0,
+                    y: 0
+                },
+                down: false,
+                firstDown : false,
 
-      },
-        style:{
-          thickness : 3,
-            color : "#5af61f"
+            },
+            style:{
+                thickness : 2,
+                color : "#5af61f"
+            }
         }
-    }
   },
   computed: {
     currentMouse: function () {
@@ -76,7 +76,7 @@ export default {
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
              //push naar mysql
 
-             axios.post('canvas', {drawObject:this.drawObject});
+             axios.post('canvas', {drawObject: this.drawObject});
 
 
              //axios van mysql
