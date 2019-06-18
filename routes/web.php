@@ -23,6 +23,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/messages', 'ChatsController@fetchMessages');
 Route::post('/messages', 'ChatsController@sendMessage');
+
+Route::get('/canvas', 'ChatsController@fetchCanvas');
 Route::post('/canvas', 'ChatsController@sendCanvas');
 
 //Route::get('/messages', 'ChatsController@truncate');

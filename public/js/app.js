@@ -1877,6 +1877,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      projectObject: [],
       drawObject: {
         coordinatesX: [],
         coordinatesY: [],
@@ -1919,25 +1920,26 @@ __webpack_require__.r(__webpack_exports__);
         var c = document.getElementById("canvas");
         var ctx = c.getContext("2d");
         ctx.clearRect(0, 0, 800, 800);
-        this.drawObject.coordinatesX.push(this.currentMouse.x);
-        this.drawObject.coordinatesY.push(this.currentMouse.y);
-        this.drawObject.color.push(this.style.color);
-        this.drawObject.thickness.push(this.style.thickness);
+        this.drawObject.coordinatesX = this.currentMouse.x;
+        this.drawObject.coordinatesY = this.currentMouse.y;
+        this.drawObject.color = this.style.color;
+        this.drawObject.thickness = this.style.thickness;
 
         if (this.mouse.firstDown == true) {
-          this.drawObject.stopLine.push("f");
+          this.drawObject.stopLine = "f";
           this.mouse.firstDown = false; //////////////////////////////////////////////////////////////////////////////////////////////////////////////
           //push naar mysql
           //axios van mysql
           //zet in array
           //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         } else {
-          this.drawObject.stopLine.push("n");
+          this.drawObject.stopLine = "n";
         } //console.log(this.drawObject.coordinatesX.length);
         //console.log(JSON.stringify(this.drawObject));
         //console.log(this.drawObject);
 
 
+        console.log(this.currentMouse.x, this.currentMouse.y, this.style.color, this.style.thickness);
         axios.post('canvas', {
           drawObject: this.drawObject
         }); //ctx.beginPath();
@@ -1999,6 +2001,14 @@ __webpack_require__.r(__webpack_exports__);
         y: event.pageY
       };
       this.draw(event);
+    },
+    fetchCanvas: function fetchCanvas() {
+      var _this = this;
+
+      axios.get('canvas').then(function (response) {
+        _this.projectObject = response.data;
+        console.log('tetten');
+      });
     }
   },
   ready: function ready() {
@@ -6583,7 +6593,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/**\n* Fix user-agent\n*/\n* {\n    box-sizing: border-box;\n}\nhtml, body {\n    height: 100%;\n    margin: 0;\n    padding: 0;\n}\n\n/**\n* Canvas\n*/\n.whiteboard {\n    height: 100%;\n    width: 100%;\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    top: 0;\n}\n.colors {\n    position: fixed;\n}\n.color {\n    display: inline-block;\n    height: 48px;\n    width: 48px;\n}\n.color.black { background-color: black;\n}\n.color.red { background-color: red;\n}\n.color.green { background-color: green;\n}\n.color.blue { background-color: blue;\n}\n.color.yellow { background-color: yellow;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/**\n* Fix user-agent\n*/\n* {\n    box-sizing: border-box;\n}\nhtml, body {\n    height: 100%;\n    margin: 0;\n    padding: 0;\n}\n\n/**\n* Canvas\n*/\n.whiteboard {\n    height: 100%;\n    width: 100%;\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    top: 0;\n}\n.colors {\n    position: fixed;\n}\n.color {\n    display: inline-block;\n    height: 48px;\n    width: 48px;\n}\n.color.black { background-color: black;\n}\n.color.red { background-color: red;\n}\n.color.green { background-color: green;\n}\n.color.blue { background-color: blue;\n}\n.color.yellow { background-color: yellow;\n}\n", ""]);
 
 // exports
 

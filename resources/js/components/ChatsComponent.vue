@@ -95,7 +95,6 @@
                 this.messages.push({
                     user: this.user,
                     message: this.newMessage,
-
                 });
 
                 axios.post('messages', {message: this.newMessage});

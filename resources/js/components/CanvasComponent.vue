@@ -16,6 +16,7 @@
 export default {
     data() {
         return {
+            projectObject: [],
             drawObject :{
                 coordinatesX : [],
                 coordinatesY : [],
@@ -66,19 +67,15 @@ export default {
         ctx.clearRect(0,0,800,800);
 
 
-         this.drawObject.coordinatesX.push(this.currentMouse.x);
-         this.drawObject.coordinatesY.push(this.currentMouse.y);
-         this.drawObject.color.push(this.style.color);
-         this.drawObject.thickness.push(this.style.thickness);
-
+         this.drawObject.coordinatesX = this.currentMouse.x;
+         this.drawObject.coordinatesY = this.currentMouse.y;
+         this.drawObject.color = this.style.color;
+         this.drawObject.thickness = this.style.thickness;
          if(this.mouse.firstDown == true){
-             this.drawObject.stopLine.push("f");
+             this.drawObject.stopLine="f";
              this.mouse.firstDown = false;
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
              //push naar mysql
-
-
-
 
              //axios van mysql
 
@@ -88,12 +85,14 @@ export default {
 
        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
          }else{
-             this.drawObject.stopLine.push("n");
+             this.drawObject.stopLine="n";
          }
          //console.log(this.drawObject.coordinatesX.length);
          //console.log(JSON.stringify(this.drawObject));
          //console.log(this.drawObject);
+         console.log(this.currentMouse.x,this.currentMouse.y,this.style.color,this.style.thickness);
          axios.post('canvas', {drawObject: this.drawObject});
+
 
         //ctx.beginPath();
         // ctx.moveTo(this.currentMouse.x, this.currentMouse.y);
@@ -132,8 +131,6 @@ export default {
           if(x=='bk'){
               this.style.color = "#000000";
           }
-
-
       },
 
       handleMouseDown: function (event) {
@@ -149,7 +146,7 @@ export default {
         ctx.moveTo(this.currentMouse.x, this.currentMouse.y);
 
     },
-        handleMouseUp: function () {
+      handleMouseUp: function () {
 
       this.mouse.down = false;
     },
@@ -161,6 +158,12 @@ export default {
       }
 
       this.draw(event);
+    },
+    fetchCanvas() {
+        axios.get('canvas').then(response => {
+            this.projectObject = response.data;
+            console.log('tetten');
+        })
     }
   },
     ready: function () {
