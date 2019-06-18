@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Message;
 use App\Events\MessageSent;
 use App\Events\drawer;
+use App\Canvas;
 
 class ChatsController extends Controller
 {
@@ -59,5 +60,8 @@ class ChatsController extends Controller
        return $request;
 
         // return ['status' => 'success'];
+    }
+    public function getCanvas(){
+        return Canvas::with('user')->get();
     }
 }
