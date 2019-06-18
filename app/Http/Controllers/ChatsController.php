@@ -65,4 +65,7 @@ class ChatsController extends Controller
     {
         return Canvas::with('user')->get();
     }
+    public function getCanvas(){
+        return Canvas::with('user')->get();
+    }
 }

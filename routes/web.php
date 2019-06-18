@@ -26,6 +26,8 @@ Route::post('/messages', 'ChatsController@sendMessage');
 
 Route::get('/canvas', 'ChatsController@fetchCanvas');
 Route::post('/canvas', 'ChatsController@sendCanvas');
+Route::get('/canvas', 'ChatsController@getCanvas');
+
 
 //Route::get('/messages', 'ChatsController@truncate');
 

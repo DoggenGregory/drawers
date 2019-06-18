@@ -16,7 +16,7 @@
 export default {
     data() {
         return {
-            projectObject: [],
+            projectObject:[],
             drawObject :{
                 coordinatesX : [],
                 coordinatesY : [],
@@ -43,6 +43,16 @@ export default {
             }
         }
   },
+
+  created() {
+    this.fetchCanvas();
+
+    Echo.join('chat')
+        .listen('CanvasSent', (event) => {
+            this.projectObject.push(event.canvas);
+        })
+  },
+
   computed: {
     currentMouse: function () {
       var c = document.getElementById("canvas");
@@ -94,9 +104,15 @@ export default {
          axios.post('canvas', {drawObject: this.drawObject});
 
 
-        //ctx.beginPath();
-        // ctx.moveTo(this.currentMouse.x, this.currentMouse.y);
-         for (var i = 0; i<this.drawObject.coordinatesX.length; i++){
+
+
+            //  axios.get('canvas').then(response => {
+            //      this.projectObject = response.data;
+            //     console.log(this.projectObject)
+            //  })
+
+
+             for (var i = 0; i<this.drawObject.coordinatesX.length; i++){
              if(this.drawObject.stopLine[i]  == "n") {
                  ctx.beginPath();
                  ctx.moveTo(this.drawObject.coordinatesX[i - 1], this.drawObject.coordinatesY[i - 1]);
@@ -162,7 +178,7 @@ export default {
     fetchCanvas() {
         axios.get('canvas').then(response => {
             this.projectObject = response.data;
-            console.log('tetten');
+            // console.log(this.projectObject);
         })
     }
   },

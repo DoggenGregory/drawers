@@ -10,22 +10,22 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-use App\Message;
+use App\Canvas;
 
-class MessageSent implements ShouldBroadcast
+class CanvasSent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $canvas;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($canvas)
     {
-        $this->message = $message;
+        $this->canvas = $canvas;
     }
 
     /**
