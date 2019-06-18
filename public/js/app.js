@@ -1494,7 +1494,7 @@ module.exports = function spread(callback) {
 
 
 var bind = __webpack_require__(/*! ./helpers/bind */ "./node_modules/axios/lib/helpers/bind.js");
-var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/is-buffer/index.js");
+var isBuffer = __webpack_require__(/*! is-buffer */ "./node_modules/axios/node_modules/is-buffer/index.js");
 
 /*global toString:true*/
 
@@ -1829,6 +1829,28 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/axios/node_modules/is-buffer/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/axios/node_modules/is-buffer/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+module.exports = function isBuffer (obj) {
+  return obj != null && obj.constructor != null &&
+    typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CanvasComponent.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CanvasComponent.vue?vue&type=script&lang=js& ***!
@@ -1923,18 +1945,20 @@ __webpack_require__.r(__webpack_exports__);
         axios.post('canvas', {
           drawObject: this.drawObject
         });
-        axios.get('canvas').then(function (response) {
+        axios.get('canvas', {
+          greg: this.projectObject.length
+        }).then(function (response) {
           _this.projectObject = response.data;
-          console.log(_this.projectObject);
         });
+        console.log(this.projectObject.length);
 
-        for (var i = 0; i < this.drawObject.coordinatesX.length; i++) {
-          if (this.drawObject.stopLine[i] == "n") {
+        for (var i = 0; i < this.projectObject.length; i++) {
+          if (this.projectObject[i]["break"] == "n") {
             ctx.beginPath();
-            ctx.moveTo(this.drawObject.coordinatesX[i - 1], this.drawObject.coordinatesY[i - 1]);
-            ctx.lineTo(this.drawObject.coordinatesX[i], this.drawObject.coordinatesY[i]);
-            ctx.strokeStyle = this.drawObject.color[i];
-            ctx.lineWidth = this.drawObject.thickness[i];
+            ctx.moveTo(this.projectObject[i - 1].corX, this.projectObject[i - 1].corY);
+            ctx.lineTo(this.projectObject[i].corX, this.projectObject[i].corY);
+            ctx.strokeStyle = this.projectObject[i].color;
+            ctx.lineWidth = this.projectObject[i].thickness;
             ctx.stroke();
             ctx.closePath();
           }
@@ -6568,7 +6592,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/**\n* Fix user-agent\n*/\n* {\n    box-sizing: border-box;\n}\nhtml, body {\n    height: 100%;\n    margin: 0;\n    padding: 0;\n}\n\n/**\n* Canvas\n*/\n.whiteboard {\n    height: 100%;\n    width: 100%;\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    top: 0;\n}\n.colors {\n    position: fixed;\n}\n.color {\n    display: inline-block;\n    height: 48px;\n    width: 48px;\n}\n.color.black { background-color: black;\n}\n.color.red { background-color: red;\n}\n.color.green { background-color: green;\n}\n.color.blue { background-color: blue;\n}\n.color.yellow { background-color: yellow;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/**\n* Fix user-agent\n*/\n* {\n    box-sizing: border-box;\n}\nhtml, body {\n    height: 100%;\n    margin: 0;\n    padding: 0;\n}\n\n/**\n* Canvas\n*/\n.whiteboard {\n    height: 100%;\n    width: 100%;\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    top: 0;\n}\n.colors {\n    position: fixed;\n}\n.color {\n    display: inline-block;\n    height: 48px;\n    width: 48px;\n}\n.color.black { background-color: black;\n}\n.color.red { background-color: red;\n}\n.color.green { background-color: green;\n}\n.color.blue { background-color: blue;\n}\n.color.yellow { background-color: yellow;\n}\n", ""]);
 
 // exports
 
@@ -6657,38 +6681,6 @@ function toComment(sourceMap) {
 	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
 
 	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/is-buffer/index.js":
-/*!*****************************************!*\
-  !*** ./node_modules/is-buffer/index.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-
-// The _isBuffer check is for Safari 5-7 support, because it's missing
-// Object.prototype.constructor. Remove this eventually
-module.exports = function (obj) {
-  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
-}
-
-function isBuffer (obj) {
-  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-}
-
-// For Node v0.10 support. Remove this eventually.
-function isSlowBuffer (obj) {
-  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
 

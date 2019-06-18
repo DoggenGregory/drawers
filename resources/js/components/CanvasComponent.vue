@@ -96,19 +96,21 @@ export default {
 
 
 
-             axios.get('canvas').then(response => {
+             axios.get('canvas',{greg:this.projectObject.length}).then(response => {
                  this.projectObject = response.data;
-                console.log(this.projectObject)
+
+
              })
 
+                console.log(this.projectObject.length);
 
-             for (var i = 0; i<this.drawObject.coordinatesX.length; i++){
-             if(this.drawObject.stopLine[i]  == "n") {
+             for (var i = 0; i<this.projectObject.length; i++){
+             if(this.projectObject[i].break  == "n") {
                  ctx.beginPath();
-                 ctx.moveTo(this.drawObject.coordinatesX[i - 1], this.drawObject.coordinatesY[i - 1]);
-                 ctx.lineTo(this.drawObject.coordinatesX[i], this.drawObject.coordinatesY[i]);
-                 ctx.strokeStyle = this.drawObject.color[i];
-                 ctx.lineWidth = this.drawObject.thickness[i];
+                 ctx.moveTo(this.projectObject[i - 1].corX, this.projectObject[i-1].corY);
+                 ctx.lineTo(this.projectObject[i].corX, this.projectObject[i].corY);
+                 ctx.strokeStyle = this.projectObject[i].color;
+                 ctx.lineWidth = this.projectObject[i].thickness;
                  ctx.stroke();
                  ctx.closePath();
              }
