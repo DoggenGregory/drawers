@@ -48,8 +48,9 @@ export default {
     this.fetchCanvas();
 
     Echo.join('chat')
-        .listen('CanvasSent', (event) => {
-            this.projectObject.push(event.canvas);
+        .listen('DrawingSent', (event) => {
+            this.projectObject.push(this.fetchCanvas());
+            this.drawCanvas();
         })
   },
 
@@ -67,6 +68,12 @@ export default {
   },
 
   methods: {
+      fetchCanvas() {
+        axios.get('canvas', {drawing:this.projectObject.length}).then(response => {
+            this.projectObject = response.data;
+            // console.log('tieten');
+        })
+    },
     draw: function (event) {
       //requestAnimationFrame(this.draw);
      if (this.mouse.down) {
@@ -112,21 +119,29 @@ export default {
             //  })
 
 
-             for (var i = 0; i<this.drawObject.coordinatesX.length; i++){
-             if(this.drawObject.stopLine[i]  == "n") {
-                 ctx.beginPath();
-                 ctx.moveTo(this.drawObject.coordinatesX[i - 1], this.drawObject.coordinatesY[i - 1]);
-                 ctx.lineTo(this.drawObject.coordinatesX[i], this.drawObject.coordinatesY[i]);
-                 ctx.strokeStyle = this.drawObject.color[i];
-                 ctx.lineWidth = this.drawObject.thickness[i];
-                 ctx.stroke();
-                 ctx.closePath();
-             }
-         }
 
 
      }
 
+    },
+    drawCanvas: function() {
+        var c = document.getElementById("canvas");
+
+         var ctx = c.getContext("2d");
+
+        console.log(this.projectObject[0].break);
+
+             for (var i = 0; i<this.projectObject.length; i++){
+             if(this.projectObject[i].break  == "n") {
+                 ctx.beginPath();
+                 ctx.moveTo(this.projectObject[i - 1].corX, this.projectObject[i-1].corY);
+                 ctx.lineTo(this.projectObject[i].corX, this.projectObject[i].corY);
+                 ctx.strokeStyle = this.projectObject[i].color;
+                 ctx.lineWidth = this.projectObject[i].thickness;
+                 ctx.stroke();
+                 ctx.closePath();
+             }
+         }
     },
       thicknessPlus: function() {
           this.style.thickness = this.style.thickness + 5;
@@ -175,12 +190,7 @@ export default {
 
       this.draw(event);
     },
-    fetchCanvas() {
-        axios.get('canvas').then(response => {
-            this.projectObject = response.data;
-            // console.log(this.projectObject);
-        })
-    }
+
   },
     ready: function () {
         var c = document.getElementById("canvas");

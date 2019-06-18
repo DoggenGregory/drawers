@@ -1907,8 +1907,10 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.fetchCanvas();
-    Echo.join('chat').listen('CanvasSent', function (event) {
-      _this.projectObject.push(event.canvas);
+    Echo.join('chat').listen('DrawingSent', function (event) {
+      _this.projectObject.push(_this.fetchCanvas());
+
+      _this.drawCanvas();
     });
   },
   computed: {
@@ -1922,6 +1924,15 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    fetchCanvas: function fetchCanvas() {
+      var _this2 = this;
+
+      axios.get('canvas', {
+        drawing: this.projectObject.length
+      }).then(function (response) {
+        _this2.projectObject = response.data; // console.log('tieten');
+      });
+    },
     draw: function draw(event) {
       //requestAnimationFrame(this.draw);
       if (this.mouse.down) {
@@ -1954,17 +1965,22 @@ __webpack_require__.r(__webpack_exports__);
         //      this.projectObject = response.data;
         //     console.log(this.projectObject)
         //  })
+      }
+    },
+    drawCanvas: function drawCanvas() {
+      var c = document.getElementById("canvas");
+      var ctx = c.getContext("2d");
+      console.log(this.projectObject[0]["break"]);
 
-        for (var i = 0; i < this.drawObject.coordinatesX.length; i++) {
-          if (this.drawObject.stopLine[i] == "n") {
-            ctx.beginPath();
-            ctx.moveTo(this.drawObject.coordinatesX[i - 1], this.drawObject.coordinatesY[i - 1]);
-            ctx.lineTo(this.drawObject.coordinatesX[i], this.drawObject.coordinatesY[i]);
-            ctx.strokeStyle = this.drawObject.color[i];
-            ctx.lineWidth = this.drawObject.thickness[i];
-            ctx.stroke();
-            ctx.closePath();
-          }
+      for (var i = 0; i < this.projectObject.length; i++) {
+        if (this.projectObject[i]["break"] == "n") {
+          ctx.beginPath();
+          ctx.moveTo(this.projectObject[i - 1].corX, this.projectObject[i - 1].corY);
+          ctx.lineTo(this.projectObject[i].corX, this.projectObject[i].corY);
+          ctx.strokeStyle = this.projectObject[i].color;
+          ctx.lineWidth = this.projectObject[i].thickness;
+          ctx.stroke();
+          ctx.closePath();
         }
       }
     },
@@ -2011,13 +2027,6 @@ __webpack_require__.r(__webpack_exports__);
         y: event.pageY
       };
       this.draw(event);
-    },
-    fetchCanvas: function fetchCanvas() {
-      var _this2 = this;
-
-      axios.get('canvas').then(function (response) {
-        _this2.projectObject = response.data; // console.log(this.projectObject);
-      });
     }
   },
   ready: function ready() {
@@ -6602,7 +6611,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/**\n* Fix user-agent\n*/\n* {\n    box-sizing: border-box;\n}\nhtml, body {\n    height: 100%;\n    margin: 0;\n    padding: 0;\n}\n\n/**\n* Canvas\n*/\n.whiteboard {\n    height: 100%;\n    width: 100%;\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    top: 0;\n}\n.colors {\n    position: fixed;\n}\n.color {\n    display: inline-block;\n    height: 48px;\n    width: 48px;\n}\n.color.black { background-color: black;\n}\n.color.red { background-color: red;\n}\n.color.green { background-color: green;\n}\n.color.blue { background-color: blue;\n}\n.color.yellow { background-color: yellow;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/**\n* Fix user-agent\n*/\n* {\n    box-sizing: border-box;\n}\nhtml, body {\n    height: 100%;\n    margin: 0;\n    padding: 0;\n}\n\n/**\n* Canvas\n*/\n.whiteboard {\n    height: 100%;\n    width: 100%;\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    top: 0;\n}\n.colors {\n    position: fixed;\n}\n.color {\n    display: inline-block;\n    height: 48px;\n    width: 48px;\n}\n.color.black { background-color: black;\n}\n.color.red { background-color: red;\n}\n.color.green { background-color: green;\n}\n.color.blue { background-color: blue;\n}\n.color.yellow { background-color: yellow;\n}\n", ""]);
 
 // exports
 

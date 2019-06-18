@@ -9,6 +9,7 @@ use App\Message;
 use App\Events\MessageSent;
 use App\Events\drawer;
 use App\Canvas;
+use App\Events\DrawingSent;
 
 class ChatsController extends Controller
 {
@@ -47,7 +48,7 @@ class ChatsController extends Controller
 
     public function sendCanvas(Request $request)
     {
-        $drawers = auth()->user()->canvas()->create([
+        $drawing = auth()->user()->canvas()->create([
             'corX' => $request->drawObject['coordinatesX'],
             'corY' => $request->drawObject['coordinatesY'],
             'color' => $request->drawObject['color'],
@@ -56,16 +57,13 @@ class ChatsController extends Controller
 
         ]);
 
-        broadcast(new drawer($drawers->load('user')))->toOthers();
+        broadcast(new DrawingSent($drawing->load('user')))->toOthers();
 
         return ['status' => 'success'];
     }
 
-    public function fetchCanvas()
+    public function getCanvas(Request $request)
     {
-        return Canvas::with('user')->get();
-    }
-    public function getCanvas(){
-        return Canvas::with('user')->get();
+        return Canvas::with('user')->where('id', '>', $request)->get();
     }
 }
