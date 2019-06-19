@@ -97,7 +97,6 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
-            <p id="shit">wtf is deze shit</p>
 
         </div>
 

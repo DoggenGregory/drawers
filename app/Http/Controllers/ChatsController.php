@@ -64,6 +64,6 @@ class ChatsController extends Controller
 
     public function getCanvas(Request $request)
     {
-        return Canvas::with('user')->where('id', '>', $request)->get();
+        // return Canvas::with('user')->where('id', '>', $request)->get();
     }
 }

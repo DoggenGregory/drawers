@@ -23,7 +23,7 @@ class DrawingSent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(Canvas $drawing)
+    public function __construct($drawing)
     {
         $this->drawing = $drawing;
     }
@@ -35,6 +35,6 @@ class DrawingSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PresenceChannel('chat');
+        return new Channel('canvas');
     }
 }

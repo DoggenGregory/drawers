@@ -47,20 +47,15 @@ export default {
   created() {
     this.fetchCanvas();
 
-    Echo.join('chat')
-        .listen('DrawingSent', (event) => {
-            this.projectObject.push(this.fetchCanvas());
-            this.drawCanvas();
-        })
   },
 
   computed: {
-    currentMouse: function () {
-      var c = document.getElementById("canvas");
+      currentMouse: function () {
+          var c = document.getElementById("canvas");
       var rect = c.getBoundingClientRect();
 
       return {
-        x: this.mouse.current.x - (window.scrollX + rect.left),
+          x: this.mouse.current.x - (window.scrollX + rect.left),
         y: this.mouse.current.y - (window.scrollY + rect.top)
 
       }
@@ -68,11 +63,26 @@ export default {
   },
 
   methods: {
+      listener() {
+          Echo.join('canvas')
+              .listen('DrawingSent', (event) => {
+                  // this.projectObject.push(this.fetchCanvas());
+                  // this.drawCanvas();
+                  console.log(event.drawing);
+                  console.log("japie");
+              });
+
+          window.Echo.channel('canvas')
+              .listen('.DrawingSent', function (data) {
+              console.log(data);
+          });
+      },
+
       fetchCanvas() {
-        axios.get('canvas', {drawing:this.projectObject.length}).then(response => {
-            this.projectObject = response.data;
-            // console.log('tieten');
-        })
+          // axios.get('canvas', {drawing:this.projectObject.length}).then(response => {
+        //     this.projectObject = response.data;
+        // })
+
     },
     draw: function (event) {
       //requestAnimationFrame(this.draw);
@@ -83,7 +93,6 @@ export default {
 
         ctx.clearRect(0,0,800,800);
 
-
          this.drawObject.coordinatesX = this.currentMouse.x;
          this.drawObject.coordinatesY = this.currentMouse.y;
          this.drawObject.color = this.style.color;
@@ -91,36 +100,12 @@ export default {
          if(this.mouse.firstDown == true){
              this.drawObject.stopLine="f";
              this.mouse.firstDown = false;
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-             //push naar mysql
-
-             //axios van mysql
-
-
-             //zet in array
-
-
-       //////////////////////////////////////////////////////////////////////////////////////////////////////////////
          }else{
              this.drawObject.stopLine="n";
          }
-         //console.log(this.drawObject.coordinatesX.length);
-         //console.log(JSON.stringify(this.drawObject));
-         //console.log(this.drawObject);
-         console.log(this.currentMouse.x,this.currentMouse.y,this.style.color,this.style.thickness);
+
+        //  console.log(this.currentMouse.x,this.currentMouse.y,this.style.color,this.style.thickness);
          axios.post('canvas', {drawObject: this.drawObject});
-
-
-
-
-            //  axios.get('canvas').then(response => {
-            //      this.projectObject = response.data;
-            //     console.log(this.projectObject)
-            //  })
-
-
-
-
      }
 
     },
@@ -129,7 +114,7 @@ export default {
 
          var ctx = c.getContext("2d");
 
-        console.log(this.projectObject[0].break);
+        // console.log(this.projectObject[0].break);
 
              for (var i = 0; i<this.projectObject.length; i++){
              if(this.projectObject[i].break  == "n") {

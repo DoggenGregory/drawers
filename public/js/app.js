@@ -1904,14 +1904,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    var _this = this;
-
     this.fetchCanvas();
-    Echo.join('chat').listen('DrawingSent', function (event) {
-      _this.projectObject.push(_this.fetchCanvas());
-
-      _this.drawCanvas();
-    });
   },
   computed: {
     currentMouse: function currentMouse() {
@@ -1924,14 +1917,20 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    fetchCanvas: function fetchCanvas() {
-      var _this2 = this;
-
-      axios.get('canvas', {
-        drawing: this.projectObject.length
-      }).then(function (response) {
-        _this2.projectObject = response.data; // console.log('tieten');
+    listener: function listener() {
+      Echo.join('canvas').listen('DrawingSent', function (event) {
+        // this.projectObject.push(this.fetchCanvas());
+        // this.drawCanvas();
+        console.log(event.drawing);
+        console.log("japie");
       });
+      window.Echo.channel('canvas').listen('.DrawingSent', function (data) {
+        console.log(data);
+      });
+    },
+    fetchCanvas: function fetchCanvas() {// axios.get('canvas', {drawing:this.projectObject.length}).then(response => {
+      //     this.projectObject = response.data;
+      // })
     },
     draw: function draw(event) {
       //requestAnimationFrame(this.draw);
@@ -1946,31 +1945,20 @@ __webpack_require__.r(__webpack_exports__);
 
         if (this.mouse.firstDown == true) {
           this.drawObject.stopLine = "f";
-          this.mouse.firstDown = false; //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          //push naar mysql
-          //axios van mysql
-          //zet in array
-          //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          this.mouse.firstDown = false;
         } else {
           this.drawObject.stopLine = "n";
-        } //console.log(this.drawObject.coordinatesX.length);
-        //console.log(JSON.stringify(this.drawObject));
-        //console.log(this.drawObject);
+        } //  console.log(this.currentMouse.x,this.currentMouse.y,this.style.color,this.style.thickness);
 
 
-        console.log(this.currentMouse.x, this.currentMouse.y, this.style.color, this.style.thickness);
         axios.post('canvas', {
           drawObject: this.drawObject
-        }); //  axios.get('canvas').then(response => {
-        //      this.projectObject = response.data;
-        //     console.log(this.projectObject)
-        //  })
+        });
       }
     },
     drawCanvas: function drawCanvas() {
       var c = document.getElementById("canvas");
-      var ctx = c.getContext("2d");
-      console.log(this.projectObject[0]["break"]);
+      var ctx = c.getContext("2d"); // console.log(this.projectObject[0].break);
 
       for (var i = 0; i < this.projectObject.length; i++) {
         if (this.projectObject[i]["break"] == "n") {
@@ -6611,7 +6599,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/**\n* Fix user-agent\n*/\n* {\n    box-sizing: border-box;\n}\nhtml, body {\n    height: 100%;\n    margin: 0;\n    padding: 0;\n}\n\n/**\n* Canvas\n*/\n.whiteboard {\n    height: 100%;\n    width: 100%;\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    top: 0;\n}\n.colors {\n    position: fixed;\n}\n.color {\n    display: inline-block;\n    height: 48px;\n    width: 48px;\n}\n.color.black { background-color: black;\n}\n.color.red { background-color: red;\n}\n.color.green { background-color: green;\n}\n.color.blue { background-color: blue;\n}\n.color.yellow { background-color: yellow;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/**\n* Fix user-agent\n*/\n* {\n    box-sizing: border-box;\n}\nhtml, body {\n    height: 100%;\n    margin: 0;\n    padding: 0;\n}\n\n/**\n* Canvas\n*/\n.whiteboard {\n    height: 100%;\n    width: 100%;\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    top: 0;\n}\n.colors {\n    position: fixed;\n}\n.color {\n    display: inline-block;\n    height: 48px;\n    width: 48px;\n}\n.color.black { background-color: black;\n}\n.color.red { background-color: red;\n}\n.color.green { background-color: green;\n}\n.color.blue { background-color: blue;\n}\n.color.yellow { background-color: yellow;\n}\n", ""]);
 
 // exports
 
@@ -17593,25 +17581,25 @@ var PusherChannel = function (_Channel) {
  * This class represents a Pusher private channel.
  */
 var PusherPrivateChannel = function (_PusherChannel) {
-    inherits(PusherPrivateChannel, _PusherChannel);
+  inherits(PusherPrivateChannel, _PusherChannel);
 
-    function PusherPrivateChannel() {
-        classCallCheck(this, PusherPrivateChannel);
-        return possibleConstructorReturn(this, (PusherPrivateChannel.__proto__ || Object.getPrototypeOf(PusherPrivateChannel)).apply(this, arguments));
+  function PusherPrivateChannel() {
+    classCallCheck(this, PusherPrivateChannel);
+    return possibleConstructorReturn(this, (PusherPrivateChannel.__proto__ || Object.getPrototypeOf(PusherPrivateChannel)).apply(this, arguments));
+  }
+
+  createClass(PusherPrivateChannel, [{
+    key: 'whisper',
+
+    /**
+     * Trigger client event on the channel.
+     */
+    value: function whisper(eventName, data) {
+      this.pusher.channels.channels[this.name].trigger('client-' + eventName, data);
+      return this;
     }
-
-    createClass(PusherPrivateChannel, [{
-        key: 'whisper',
-
-        /**
-         * Trigger client event on the channel.
-         */
-        value: function whisper(eventName, data) {
-            this.pusher.channels.channels[this.name].trigger('client-' + eventName, data);
-            return this;
-        }
-    }]);
-    return PusherPrivateChannel;
+  }]);
+  return PusherPrivateChannel;
 }(PusherChannel);
 
 /**
@@ -18190,11 +18178,11 @@ var SocketIoConnector = function (_Connector) {
     }, {
         key: 'getSocketIO',
         value: function getSocketIO() {
-            if (typeof io !== 'undefined') {
-                return io;
-            }
             if (typeof this.options.client !== 'undefined') {
                 return this.options.client;
+            }
+            if (typeof io !== 'undefined') {
+                return io;
             }
             throw new Error('Socket.io client not found. Should be globally available or passed via options.client');
         }
@@ -60748,7 +60736,7 @@ if (token) {
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "pusher_key",
+  key: "fdd108fa0ac0abc4c5e9",
   cluster: "eu",
   // encrypted: true,
   wsHost: window.location.hostname,
